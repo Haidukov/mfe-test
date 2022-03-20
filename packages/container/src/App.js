@@ -4,7 +4,7 @@ import MarketingApp from './MarketingApp';
 const App = () => {
     return (
         <div>
-            <h1>Hello</h1>
+            <h1>Hellos</h1>
             <hr />
            <MarketingApp />
         </div>
