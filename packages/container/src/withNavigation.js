@@ -15,7 +15,7 @@ const withNavigation = (mount, props = {}) => (componentProps = {}) => {
                     propValue
             };
         }, {});
-        const { onParentNavigate } = mount(elRef.current, {
+        const mountResult = mount(elRef.current, {
             initialPathname: location.pathname,
             onNavigate: ({ pathname: nextPathname }) => {
                 if (location.pathname !== nextPathname) {
@@ -24,8 +24,11 @@ const withNavigation = (mount, props = {}) => (componentProps = {}) => {
             },
             ...propsToPass
         });
-        const unsubscribe = history.listen(onParentNavigate);
-        return () => unsubscribe();
+        let unsubscribe;
+        if (mountResult) {
+            unsubscribe = history.listen(mountResult.onParentNavigate);
+        }
+        return () => unsubscribe && unsubscribe();
     }, []);
     return <div ref={elRef} />
 };
