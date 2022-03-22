@@ -14,10 +14,11 @@ const generateClassName = createGenerateClassName({
 const App = () => {
     const [isSignedIn, setSignedIn] = useState(false);
     return (
-        <StylesProvider generateClassName={generateClassName}>
             <BrowserRouter>
                 <Suspense fallback={<Progress/>}>
-                    <Header signedIn={isSignedIn} onSignOut={() => setSignedIn(false)} />
+                    <StylesProvider generateClassName={generateClassName}>
+                        <Header signedIn={isSignedIn} onSignOut={() => setSignedIn(false)} />
+                    </StylesProvider>
                     <Switch>
                         <Route path='/auth'>
                             <AuthApp onSignIn={() => {
@@ -28,7 +29,6 @@ const App = () => {
                     </Switch>
                 </Suspense>
             </BrowserRouter>
-        </StylesProvider>
     );
 };
 
